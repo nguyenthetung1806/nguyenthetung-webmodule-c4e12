@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>Goodread</title>
+
+
+  </head>
+  <body>
+
+      {% include 'templates_include.html' %}
+
+    <div class="container">
+      <div class="row m-4">
+        {% for book in books %}
+        <div class="col-md-4 col-sm-1 mb-3">
+          <div class="card">
+            <div class="ml-4 mr-4 pl-3 pr-3 mt-3" >
+                          <img class=" img-responsive card-img-top" src="{{ book.image }}" height="350px" alt="">
+            </div>
+
+
+            <div class="card-body">
+              <h4 class="card-title text-center">
+                <div class="div-1">
+                  {{ book.book_name }}
+                </div>
+
+              </h4>
+
+                <div class="div-2 text-center text-light bg-secondary m-0 p-1">
+                  <h5 "card-title text-light ">
+                  {{ book.author }}
+                  </h5>
+                </div>
+
+              <div class="card-text">
+
+                <div class="div-3">
+                    {{ book.description }}
+                </div>
+
+            </div>
+          </div>
+          <div class="card-footer">
+            <button class = "btn btn-dark float-right">More Information</button>
+          </div>
+        </div>
+
+      </div>
+              {% endfor %}
+    </div>
+  </div>
+
+
+
+  </html>

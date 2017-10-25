@@ -1,5 +1,5 @@
 import mlab
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from mongoengine import *
 from faker import Faker
 
@@ -23,6 +23,24 @@ class Girl(Document):
 #                 rating = 4.1   )
 #     g.save()
 
+@app.route('/admin')
+def admin():
+    return render_template('admin.html' , girls = Girl.objects())
+
+
+@app.route('/add-girl', methods=['GET', 'POST'])
+def add_girl():
+    if request.method == "GET":
+        return render_template('add_girl.html')
+    elif request.method == "POST":
+        form = request.form
+        name = form['name']
+        image = form['image']
+        description = form['description']
+        girl = Girl(name=name, image=image, description=description, rating=4.1)
+        girl.save()
+        return "Added"
+
 
 @app.route('/list')
 def list_demo():
@@ -32,6 +50,7 @@ def list_demo():
 
 @app.route('/')
 def index():
+
     return render_template('homepage.html')
 
 

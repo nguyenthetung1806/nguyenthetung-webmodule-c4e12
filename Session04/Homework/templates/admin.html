@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Admin</title>
+
+
+  </head>
+  <body>
+          {% include 'templates_include.html' %}
+
+
+    <div class="container">
+
+      <a href="/add-book">
+      <button class="btn btn-sm btn-dark float-right mb-2 mt-2 ">Thêm</button>
+      </a>
+      <table class="table">
+        <thead class="thead-dark ">
+          <tr  class="row">
+            <th class="col-md-1 text-center">#</th>
+            <th class="col-md-1">Thao tác</th>
+            <th class="col-md-2">Tên</th>
+            <th class="col-md-1">Tác giả</th>
+            <th class="col-md-1">Ảnh</th>
+            <th class="col-md-6">Chi tiết</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          {% for book in books %}
+            <tr class="row">
+              <th class="col-md-1 text-center">{{ loop.index }}</th>
+              <td class="col-md-1 text-center">
+                <span><i class="fa fa-pencil text-secondary" aria-hidden="true"></i></span>
+                <span>
+                    <form action="{{ url_for('delete_book', id=10) }}" method="POST">
+                      <button type="submit" class="btn btn-link"  name="book_name" value={{book.book_name}}><i class="fa fa-trash text-secondary" aria-hidden="true"></i></button>
+                    </form>
+                </span>
+              </td>
+              <td class="col-md-2">{{ book.book_name }}</td>
+              <td class="col-md-1">{{ book.author }}</td>
+              <td class="col-md-1">
+                <a href="{{ book.image }}">Link</a>
+              </td >
+              <td class="col-md-6">{{ book.description }}</td>
+            </tr>
+          {% endfor%}
+        </tbody>
+
+      </table>
+    </div>
+    <!-- Footer -->
+  </body>
+</html>
