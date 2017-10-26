@@ -14,6 +14,17 @@ class Girl(Document):
     description = StringField()
     rating = FloatField()
 
+# mongoengine
+# 1. Find record base on ID
+# mongoengine lazy loading
+# girl = Girl.objects().with_id('59e3342e7456e32cc4c79299')
+# # 2. Delete
+# if girl is None:
+#     print("Not found")
+# else:
+#     girl.delete()
+
+
 # f = Faker ()
 #
 # for _  in range (20):
@@ -60,23 +71,41 @@ def girl_page():
     return render_template('girls.html', girls = girl_list)
 
 
-@app.route('/dict')
-def dict_demo():
-    dicts = {
-    'name': 'Huỳnh Tuấn Kiệt',
-    'image': 'http://www.tieuthien.com/wp-content/uploads/2016/10/hot-girl-gai-xinh-facebook-tieuthien.com-5.jpg'
-    }
-    return render_template('girls_dict.html',
-        girl = dicts)
+@app.route('/delete-girl/<girl_id>')
+def delete_girl(girl_id):
+    girl = Girl.objects().with_id(girl_id)
+    if girl is None:
+        return("Not found")
+    else:
+        girl.delete()
+        return "Deleted " + girl_id
 
 
-@app.route('/css-demo')
-def css_demo():
-    return render_template('css_demo.html')
 
-@app.route('/test')
-def test():
-    return render_template('test.html')
+@app.route('/edit-girl/<girl_id>', methods=['GET', 'POST'])
+def edit_girl(girl_id):
+    if request.method == "GET":
+        girl = Girl.objects().with_id(girl_id)
+
+        return render_template('edit-girl.html', girl = girl )
+    elif request.method == "POST":
+        form = request.form
+        name = form['name']
+        image = form['image']
+        description = form['description']
+        rating = form['rating']
+        Girl.objects().with_id(girl_id).update(name=name, image=image, description=description, rating = rating)
+        return "Added"
+
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':

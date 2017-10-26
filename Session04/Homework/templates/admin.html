@@ -36,7 +36,10 @@
                 <span><i class="fa fa-pencil text-secondary" aria-hidden="true"></i></span>
                 <span>
                     <form action="{{ url_for('delete_book', id=10) }}" method="POST">
-                      <button type="submit" class="btn btn-link"  name="book_name" value={{book.book_name}}><i class="fa fa-trash text-secondary" aria-hidden="true"></i></button>
+                      <button type="submit" class="btn btn-link"  name="{{ book_id }}" value="{{ book.id }}">
+                        <i class="fa fa-trash text-secondary" aria-hidden="true">
+                        </i>
+                      </button>
                     </form>
                 </span>
               </td>

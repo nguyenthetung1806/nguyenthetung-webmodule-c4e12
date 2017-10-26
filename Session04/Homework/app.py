@@ -38,8 +38,8 @@ def admin():
 @app.route('/<int:id>', methods=['POST'])
 def delete_book(id):
     form=request.form
-    book_name=form['book_name']
-    Booklist.objects(book_name = book_name).delete()
+    book_id = form['book_id']
+    Booklist.objects( _id = book_id).delete()
     return "Deleted"
 
 
